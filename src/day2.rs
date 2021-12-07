@@ -7,7 +7,7 @@ struct Action<'a> {
 }
 
 fn parse_action(input_str: &str) -> Action {
-    let split: Vec<&str> = input_str.split(" ").collect();
+    let split: Vec<&str> = input_str.split(' ').collect();
     Action {
         direction: split.get(0).unwrap_or(&""),
         steps: split.get(1).unwrap_or(&"").parse::<i32>().unwrap_or(0),
@@ -30,8 +30,8 @@ fn puzzle1(file_path: String) -> i32 {
             depth += action.steps;
         }
     }
-    let answer = distance * depth;
-    return answer;
+
+    distance * depth
 }
 
 fn puzzle2(file_path: String) -> i32 {
@@ -52,8 +52,8 @@ fn puzzle2(file_path: String) -> i32 {
             aim += action.steps;
         }
     }
-    let answer = distance * depth;
-    return answer;
+
+    distance * depth
 }
 
 pub fn run() {

@@ -14,13 +14,13 @@ fn puzzle1(file_path: String, diagonal: bool) -> u32 {
     let height = 999;
     let mut ocean_floor = vec![0; width * height];
 
-    let input_str = file_util::file_to_string(file_path.clone());
+    let input_str = file_util::file_to_string(file_path);
     let input_lines: Vec<&str> = input_str.lines().collect();
     let mut coordinates: Vec<Coordinate> = Vec::new();
 
     for line in input_lines {
         let coords: Vec<i32> = str::replace(line, " -> ", ",")
-            .split(",")
+            .split(',')
             .map(|x| x.parse::<i32>().unwrap())
             .collect();
         if coords.len() == 4 {
@@ -85,11 +85,11 @@ fn puzzle1(file_path: String, diagonal: bool) -> u32 {
         }
     }
     let res = ocean_floor.iter().filter(|&n| *n > 1).count();
-    return res as u32;
+    res as u32
 }
 
 fn puzzle2(file_path: String) -> u32 {
-    return puzzle1(file_path, true);
+    puzzle1(file_path, true)
 }
 
 pub fn run() {

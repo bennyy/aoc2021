@@ -13,11 +13,11 @@ fn parse_drawn_number(file_path: String) -> Vec<u32> {
     let numbers_to_draw: Vec<u32> = input_lines
         .first()
         .unwrap()
-        .split(",")
+        .split(',')
         .map(|x| x.parse::<u32>().unwrap())
         .collect();
 
-    return numbers_to_draw;
+    numbers_to_draw
 }
 
 fn parse_bingo_boards(file_path: String) -> Vec<Vec<BingoDigit>> {
@@ -32,17 +32,17 @@ fn parse_bingo_boards(file_path: String) -> Vec<Vec<BingoDigit>> {
     for _ in (0..bingo_numbers.len()).step_by(6) {
         let mut tmp = " ".to_string();
         tmp.push_str(iter.next().unwrap());
-        tmp.push_str(" ");
+        tmp.push(' ');
         tmp.push_str(iter.next().unwrap());
-        tmp.push_str(" ");
+        tmp.push(' ');
         tmp.push_str(iter.next().unwrap());
-        tmp.push_str(" ");
+        tmp.push(' ');
         tmp.push_str(iter.next().unwrap());
-        tmp.push_str(" ");
+        tmp.push(' ');
         tmp.push_str(iter.next().unwrap());
-        tmp.push_str(" ");
+        tmp.push(' ');
         tmp.push_str(iter.next().unwrap());
-        tmp.push_str(" ");
+        tmp.push(' ');
 
         let tmp: Vec<BingoDigit> = tmp
             .split_whitespace()
@@ -54,7 +54,7 @@ fn parse_bingo_boards(file_path: String) -> Vec<Vec<BingoDigit>> {
         bingo_boards.push(tmp);
     }
 
-    return bingo_boards;
+    bingo_boards
 }
 
 fn dutt(number: u32, bingo_board: &mut Vec<BingoDigit>) {
@@ -65,7 +65,7 @@ fn dutt(number: u32, bingo_board: &mut Vec<BingoDigit>) {
     }
 }
 
-fn check_bingo(bingo_board: &Vec<BingoDigit>) -> bool {
+fn check_bingo(bingo_board: &[BingoDigit]) -> bool {
     if bingo_board.len() != 25 {
         println!("{:?}", bingo_board);
         assert_eq!(true, false);
@@ -74,7 +74,7 @@ fn check_bingo(bingo_board: &Vec<BingoDigit>) -> bool {
     // Check vertical
     for n in 0..5 {
         let row = &bingo_board[n * 5..n * 5 + 5];
-        let c = row.iter().filter(|&n| n.marked == true).count();
+        let c = row.iter().filter(|&n| n.marked).count();
         if c == 5 {
             return true;
         }
@@ -85,7 +85,7 @@ fn check_bingo(bingo_board: &Vec<BingoDigit>) -> bool {
         let mut bingo = true;
         for m in 0..5 {
             let col = &bingo_board[n + m * 5];
-            if col.marked == false {
+            if !col.marked {
                 bingo = false;
                 break;
             }
@@ -95,40 +95,40 @@ fn check_bingo(bingo_board: &Vec<BingoDigit>) -> bool {
             return true;
         }
     }
-    return false;
+    false
 }
 
-fn calculate_score(bingo_board: &Vec<BingoDigit>) -> u32 {
+fn calculate_score(bingo_board: &[BingoDigit]) -> u32 {
     let mut sum = 0;
     for b in bingo_board {
-        if b.marked == false {
+        if !b.marked {
             sum += b.number;
         }
     }
-    return sum;
+    sum
 }
 
 fn puzzle1(file_path: String) -> u32 {
     let numbers_to_draw = parse_drawn_number(file_path.clone());
-    let mut bingo_boards = parse_bingo_boards(file_path.clone());
+    let mut bingo_boards = parse_bingo_boards(file_path);
 
     for number in numbers_to_draw {
         for bingo_board in bingo_boards.iter_mut() {
             dutt(number, bingo_board);
-            let bingo = check_bingo(&bingo_board);
+            let bingo = check_bingo(bingo_board);
             if bingo {
-                let score = calculate_score(&bingo_board);
+                let score = calculate_score(bingo_board);
                 return score * number;
             }
         }
     }
 
-    return 0;
+    0
 }
 
 fn puzzle2(file_path: String) -> u32 {
     let numbers_to_draw = parse_drawn_number(file_path.clone());
-    let mut bingo_boards = parse_bingo_boards(file_path.clone());
+    let mut bingo_boards = parse_bingo_boards(file_path);
 
     let mut last_score = 0;
     let mut bingo_done = Vec::new();
@@ -140,9 +140,9 @@ fn puzzle2(file_path: String) -> u32 {
             }
 
             dutt(number, bingo_board);
-            let bingo = check_bingo(&bingo_board);
+            let bingo = check_bingo(bingo_board);
             if bingo {
-                let score = calculate_score(&bingo_board);
+                let score = calculate_score(bingo_board);
                 last_score = score * number;
 
                 bingo_done.push(i);
@@ -150,7 +150,7 @@ fn puzzle2(file_path: String) -> u32 {
         }
     }
 
-    return last_score;
+    last_score
 }
 
 pub fn run() {

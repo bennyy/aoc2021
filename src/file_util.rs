@@ -13,9 +13,8 @@ pub fn file_to_string(file_name: String) -> String {
 
     // Read the file contents into a string, returns `io::Result<usize>`
     let mut file_data_string = String::new();
-    match file.read_to_string(&mut file_data_string) {
-        Err(why) => panic!("couldn't read {}: {}", path.display(), why.to_string()),
-        Ok(_) => {}
+    if let Err(why) = file.read_to_string(&mut file_data_string) {
+        panic!("couldn't read {}: {}", path.display(), why.to_string())
     }
     file_data_string
 }
@@ -23,7 +22,7 @@ pub fn file_to_string(file_name: String) -> String {
 pub fn convert_string_of_ints_to_list(input_str: String) -> Vec<i32> {
     // Convert list of strings into a u32 vector.
     input_str
-        .split("\n")
+        .split('\n')
         .map(|x| x.parse::<i32>().unwrap())
         .collect()
 }

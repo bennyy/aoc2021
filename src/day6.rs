@@ -3,9 +3,9 @@ use crate::file_util;
 static INPUT_FILE: &str = "inputs/day6.txt";
 
 fn puzzle(file_path: String, days: u32) -> u64 {
-    let input_str = file_util::file_to_string(file_path.clone());
+    let input_str = file_util::file_to_string(file_path);
     let input_lines: Vec<usize> = input_str
-        .split(",")
+        .split(',')
         .map(|x| x.parse::<usize>().unwrap())
         .collect();
 

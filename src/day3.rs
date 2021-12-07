@@ -29,7 +29,7 @@ fn puzzle1(file_path: String) -> i32 {
     for input in input_lines {
         let intval = i32::from_str_radix(input, 2).unwrap();
         let bit_length = input.len();
-        
+
         // Todo: Fix reverse..
         for n in (0..bit_length).rev() {
             let mask = 1 << n;
@@ -47,25 +47,24 @@ fn puzzle1(file_path: String) -> i32 {
         let no_of_one_bits = power.bits.iter().filter(|&n| *n == 1).count();
 
         if no_of_zero_bits > no_of_one_bits {
-            gamma_rate_str.push_str("0");
-            epsilon_rate_str.push_str("1");
+            gamma_rate_str.push('0');
+            epsilon_rate_str.push('1');
         } else {
-            gamma_rate_str.push_str("1");
-            epsilon_rate_str.push_str("0");
+            gamma_rate_str.push('1');
+            epsilon_rate_str.push('0');
         }
     }
     let gamma_rate = i32::from_str_radix(&gamma_rate_str, 2).unwrap();
     let epsilon_rate = i32::from_str_radix(&epsilon_rate_str, 2).unwrap();
-    return gamma_rate * epsilon_rate;
+    gamma_rate * epsilon_rate
 }
 
-fn get_rating_index(power_vec: &Vec<Power>, size: i32, most_common_value: bool) -> usize {
+fn get_rating_index(power_vec: &[Power], size: i32, most_common_value: bool) -> usize {
     // At the start, include all indexes.
     let mut indexes: Vec<i32> = (0..size).collect();
 
     for power in power_vec.iter().rev() {
-
-        // Get all items in the list based on the index-list. 
+        // Get all items in the list based on the index-list.
         let mut power_vec_tmp = Vec::new();
         for i in &indexes {
             let bit = power.bits.get(*i as usize).unwrap();
@@ -86,8 +85,7 @@ fn get_rating_index(power_vec: &Vec<Power>, size: i32, most_common_value: bool) 
 
         // Update the index with the new index who matches the digit.
         let mut temp_indexes = Vec::new();
-        for i in &indexes
-        {
+        for i in &indexes {
             let b = power.bits.get(*i as usize).unwrap();
             if *b == which_bit {
                 temp_indexes.push(*i);
@@ -104,7 +102,7 @@ fn get_rating_index(power_vec: &Vec<Power>, size: i32, most_common_value: bool) 
         }
     }
 
-    return 0;
+    0
 }
 
 fn puzzle2(file_path: String) -> i32 {
@@ -121,7 +119,7 @@ fn puzzle2(file_path: String) -> i32 {
     for input in &input_lines {
         let intval = i32::from_str_radix(input, 2).unwrap();
         let bit_length = input.len();
-        
+
         // Todo: Fix reverse..
         for n in (0..bit_length).rev() {
             let mask = 1 << n;
@@ -136,13 +134,13 @@ fn puzzle2(file_path: String) -> i32 {
     let i = get_rating_index(&power_list, size, true);
     let res = *input_lines.get(i).unwrap();
     let oxygen_generator_rating = i32::from_str_radix(res, 2).unwrap();
-    
+
     // CO2 scrubber rating
     let i = get_rating_index(&power_list, size, false);
     let res = *input_lines.get(i).unwrap();
     let co2_scrubber_rating = i32::from_str_radix(res, 2).unwrap();
 
-    return oxygen_generator_rating * co2_scrubber_rating;
+    oxygen_generator_rating * co2_scrubber_rating
 }
 
 pub fn run() {

@@ -18,7 +18,7 @@ fn puzzle1(file_path: String) -> i32 {
         previous_depth = *depth
     }
 
-    return no_increased;
+    no_increased
 }
 
 fn puzzle2(file_path: String) -> i32 {
@@ -52,7 +52,7 @@ fn puzzle2(file_path: String) -> i32 {
 
         previous_depth = sum
     }
-    return no_increased;
+    no_increased
 }
 
 pub fn run() {
