@@ -1,5 +1,4 @@
 use crate::file_util;
-use std::collections::HashSet;
 
 static INPUT_FILE: &str = "inputs/day10.txt";
 
