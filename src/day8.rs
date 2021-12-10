@@ -15,12 +15,8 @@ fn puzzle1(file_path: String) -> i32 {
         let signal_patterns = vec.first().unwrap();
         let output = vec.last().unwrap();
 
-        println!("{}", signal_patterns);
-        println!("{}", output);
-
         let vec: Vec<&str> = output.split(' ').collect();
 
-        println!("{:?}", vec);
         for v in vec {
             if v.len() == 2 || v.len() == 3 || v.len() == 4 || v.len() == 7 {
                 res += 1
