@@ -74,13 +74,13 @@ fn puzzle(file_path: String, steps: u32) -> u64 {
 
     let max = characters
         .iter()
-        .max_by(|a, b| a.1.cmp(&b.1))
+        .max_by(|a, b| a.1.cmp(b.1))
         .map(|(k, _v)| k)
         .unwrap();
 
     let min = characters
         .iter()
-        .min_by(|a, b| a.1.cmp(&b.1))
+        .min_by(|a, b| a.1.cmp(b.1))
         .map(|(k, _v)| k)
         .unwrap();
 

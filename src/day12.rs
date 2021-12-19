@@ -11,17 +11,17 @@ struct Node<'a> {
 
 fn visit(
     korv: &HashMap<String, Vec<String>>,
-    current: &String,
+    current: &str,
     path: &mut Vec<String>,
     paths: &mut Vec<Vec<String>>,
     visited: &mut Vec<String>,
 ) {
     // Check if we're a small cave..
     if current.chars().next().unwrap().is_lowercase() {
-        visited.push(current.clone()); // Yes, never come back here..
+        visited.push(current.to_string()); // Yes, never come back here..
     }
 
-    path.push(current.clone());
+    path.push(current.to_string());
 
     if current == "end" {
         paths.push(path.to_vec());
@@ -49,16 +49,12 @@ fn puzzle1(file_path: String) -> u64 {
     let mut nodes: HashMap<String, Vec<String>> = HashMap::new();
 
     for line in input_str {
-        let split: Vec<_> = line.split("-").collect();
+        let split: Vec<_> = line.split('-').collect();
         let from = split.get(0).unwrap();
         let to = split.get(1).unwrap();
 
-        if !nodes.contains_key(&from.to_string()) {
-            nodes.insert(from.to_string(), Vec::new());
-        }
-        if !nodes.contains_key(&to.to_string()) {
-            nodes.insert(to.to_string(), Vec::new());
-        }
+        nodes.entry(from.to_string()).or_insert_with(Vec::new);
+        nodes.entry(to.to_string()).or_insert_with(Vec::new);
 
         nodes
             .get_mut(&from.to_string())

@@ -13,11 +13,11 @@ fn puzzle(file_path: String, is_puzzle_2: bool) -> u64 {
         .split('\n')
         .map(|x| {
             let mut split = x.split(',');
-            let tuple = (
+            
+            (
                 split.next().unwrap().parse::<u32>().unwrap(),
                 split.next().unwrap().parse::<u32>().unwrap(),
-            );
-            tuple
+            )
         })
         .collect();
 
@@ -28,11 +28,11 @@ fn puzzle(file_path: String, is_puzzle_2: bool) -> u64 {
         .split('\n')
         .map(|x| {
             let mut split = x.split('=');
-            let tuple = (
+            
+            (
                 split.next().unwrap(),
                 split.next().unwrap().parse::<u32>().unwrap(),
-            );
-            tuple
+            )
         })
         .collect();
     let mut width = coords.iter().max().unwrap().0;
@@ -44,8 +44,8 @@ fn puzzle(file_path: String, is_puzzle_2: bool) -> u64 {
         let split_coord = fold.1;
 
         if axis == "x" {
-            let points: Vec<_> = coords.iter_mut().filter(|x| x.0 > split_coord).collect();
-            for point in points.into_iter() {
+            
+            for point in coords.iter_mut().filter(|x| x.0 > split_coord) {
                 let digit = point.0 % split_coord;
                 if digit == 0 {
                     point.0 = 0;
@@ -55,8 +55,8 @@ fn puzzle(file_path: String, is_puzzle_2: bool) -> u64 {
             }
             width -= split_coord;
         } else if axis == "y" {
-            let points: Vec<_> = coords.iter_mut().filter(|x| x.1 > split_coord).collect();
-            for point in points.into_iter() {
+            
+            for point in coords.iter_mut().filter(|x| x.1 > split_coord) {
                 let digit = point.1 % split_coord;
                 if digit == 0 {
                     point.1 = 0;

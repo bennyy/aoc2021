@@ -12,7 +12,7 @@ fn puzzle1(file_path: String) -> i32 {
         let splitted_input = istr.split(" | ");
         let vec: Vec<&str> = splitted_input.collect();
 
-        let signal_patterns = vec.first().unwrap();
+        let _signal_patterns = vec.first().unwrap();
         let output = vec.last().unwrap();
 
         let vec: Vec<&str> = output.split(' ').collect();
@@ -28,7 +28,7 @@ fn puzzle1(file_path: String) -> i32 {
 }
 
 #[derive(Debug)]
-struct SSD {
+struct Digit {
     a: char,
     b: char,
     c: char,
@@ -38,7 +38,7 @@ struct SSD {
     g: char
 }
 
-impl SSD {
+impl Digit {
     fn get_number(&mut self, string: String) -> &str {
         let mut input_chars: Vec<char> = string.chars().collect();
         input_chars.sort_unstable();
@@ -99,6 +99,7 @@ impl SSD {
     }
 }
 
+#[allow(clippy::many_single_char_names)]
 fn puzzle2(file_path: String) -> i32 {
     let input_str = file_util::file_to_string(file_path);
     let input_str: Vec<&str> = input_str.split('\n').collect();
@@ -151,7 +152,7 @@ fn puzzle2(file_path: String) -> i32 {
         let f: Vec<_> = c_f.iter().filter(|k| !c.contains(&k)).collect();
         let b: Vec<_> = b_c_d_f.iter().filter(|k| !c_d.contains(k)).filter(|k| !f.contains(k)).collect();
 
-        let mut ssd = SSD {
+        let mut ssd = Digit {
             a: **a.get(0).unwrap(),
             b: **b.first().unwrap(),
             c: ***c.first().unwrap(),

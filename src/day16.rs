@@ -4,12 +4,12 @@ static INPUT_FILE: &str = "inputs/day16.txt";
 
 fn puzzle1(file_path: String) -> u64 {
     let input_str = file_util::file_to_string(file_path);
-    let input_str: Vec<&str> = input_str.split('\n').collect();
+    let _input_str: Vec<&str> = input_str.split('\n').collect();
 
     0
 }
 
-fn puzzle2(file_path: String) -> u64 {
+fn puzzle2(_file_path: String) -> u64 {
     0
 }
 
